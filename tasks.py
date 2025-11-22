@@ -198,24 +198,19 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 
 # Your code here:
 # -----------------------------------------------
-def tokenize_and_encode(documents: list) -> list:
-    
-    # Ordered Tokenizer
-    def tokenord(string: str) -> list:
-        punct = ['.', ',','?','!', '@', "#", '$', "%", '^', '&', '*', '(', ")"]
-        return(word.strip(' '.join(punct)).lower() for word in string.split())
-
-
+def tokenize_and_encode(documents: list):
+    # Build vocabulary from ALL documents
     token_to_id, id_to_token = make_vocabulary_map(documents)
 
-    outp = []
+    encoded_docs = []
 
     for doc in documents:
-        tokens = tokenord(doc)
+        # Important: use your tokenize() (sorted + unique!)
+        tokens = tokenize(doc)
         encoded = [token_to_id[token] for token in tokens]
-        outp.append(encoded)
+        encoded_docs.append(encoded)
 
-    return outp, token_to_id, id_to_token
+    return encoded_docs, token_to_id, id_to_token
 
 # Test:
 enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
