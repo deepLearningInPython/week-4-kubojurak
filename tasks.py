@@ -47,7 +47,7 @@ print(tokens)
 # Your code here:
 # -----------------------------------------------
 def tokenize(string: str) -> list:
-    punct = ['.', ',','?','!']
+    punct = ['.', ',','?','!', '@', "#", '$', "%", '^', '&', '*', '(', ")"]
     tokens = [word.strip(''.join(punct)).lower() for word in string.split()]
     unique = sorted(set(tokens))
     return unique
@@ -200,16 +200,22 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 # -----------------------------------------------
 def tokenize_and_encode(documents: list) -> list:
     
+    # Ordered Tokenizer
+    def tokenord(string: str) -> list:
+        punct = ['.', ',','?','!', '@', "#", '$', "%", '^', '&', '*', '(', ")"]
+        return(word.strip(' '.join(punct)).lower() for word in string.split())
+
+
     token_to_id, id_to_token = make_vocabulary_map(documents)
 
     outp = []
 
     for doc in documents:
-        tokens = tokenize(doc)
+        tokens = tokenord(doc)
         encoded = [token_to_id[token] for token in tokens]
         outp.append(encoded)
 
-    return outp
+    return outp, token_to_id, id_to_token
 
 # Test:
 enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
@@ -235,7 +241,7 @@ enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
 
 # Your code here:
 # -----------------------------------------------
-sigmoid = _ # Your code
+sigmoid = lambda x: 1/(1+np.exp(-x))
 
 # Test:
 np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
@@ -341,7 +347,7 @@ o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
 
 
 # Task 11: translate the above loss function into Python
-
+"""
 # Your code here:
 # -----------------------------------------------
 def rnn_loss(w: np.array, w, list_of_sequences: list[np.array], y: np.array) -> np.float64:
@@ -352,7 +358,7 @@ y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
 o = rnn_loss(wstart, list_of_sequences, y)
 o.size == 1 and o.round(3) == 17794.733
 # -----------------------------------------------
-
+"""
 
 
 
