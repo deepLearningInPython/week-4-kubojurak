@@ -247,6 +247,7 @@ sigmoid = lambda x: 1/(1+np.exp(-x))
 np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
 # -----------------------------------------------
 
+"""
 
 ################  O P T I O N A L  ##############
 
@@ -347,7 +348,7 @@ o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
 
 
 # Task 11: translate the above loss function into Python
-"""
+
 # Your code here:
 # -----------------------------------------------
 def rnn_loss(w: np.array, w, list_of_sequences: list[np.array], y: np.array) -> np.float64:
@@ -358,7 +359,7 @@ y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
 o = rnn_loss(wstart, list_of_sequences, y)
 o.size == 1 and o.round(3) == 17794.733
 # -----------------------------------------------
-"""
+
 
 
 
@@ -433,3 +434,4 @@ plt.plot(linreg_pred)
 plt.legend(['Truth','RNN','LinReg'])
 
 
+"""
